@@ -1,6 +1,6 @@
 import {createServer} from "http"
 import {pathsChecker} from "./utils/pathChecker"
-
+import { CryptoLiteErrorLogger } from "./utils/CryptoLiteErrorLogger"
 
 /****************************************************************
 * CryptoLite Backend FrameWork for Lite Projects                *
@@ -74,19 +74,44 @@ import {pathsChecker} from "./utils/pathChecker"
                 if(req.url==server.paths[i].path){
                     switch (req.method){
                         case "GET":
-                            server.paths[i].methods.get(req,res);
+                            try{
+                                server.paths[i].methods.get(req,res);
+                            }
+                            catch(err){
+                                CryptoLiteErrorLogger(req,res,`Error GET Didn,t avialable for path : ${server.paths[i].path}  , Provided`)
+                            }
                             break;
                         case "POST":
-                            server.paths[i].methods.post(req,res);
+                            try{
+                                server.paths[i].methods.post(req,res);
+                            }
+                            catch(err){
+                              CryptoLiteErrorLogger(req,res,`Error POST Didn,t avialable for path : ${server.paths[i].path}  , Provided`)  
+                            }
                             break;
                         case "DELETE":
-                            server.paths[i].methods.delete(req,res);
+                            try{
+                                server.paths[i].methods.delete(req,res);
+                            }
+                            catch(err){
+                                CryptoLiteErrorLogger(req,res,`Error DELETE Didn,t avialable for path : ${server.paths[i].path}  , Provided`)
+                            }
                             break;
                         case "PUT":
-                            server.paths[i].methods.put(req,res);
+                            try{
+                                server.paths[i].methods.put(req,res);
+                            }
+                            catch(err){
+                                CryptoLiteErrorLogger(req,res,`Error PUT Didn,t avialable for path : ${server.paths[i].path}  , Provided`)
+                            }
                             break;
                         case "PATCH":
+                            try{
                             server.paths[i].methods.patch(req,res);
+                            }
+                            catch(err){
+                                CryptoLiteErrorLogger(req,res,`Error DELETE Didn,t avialable for path : ${server.paths[i].path}  , Provided`)
+                            }
                     }
                 }	
         

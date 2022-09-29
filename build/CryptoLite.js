@@ -3,6 +3,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.cryptolite = void 0;
 const http_1 = require("http");
 const pathChecker_1 = require("./utils/pathChecker");
+const CryptoLiteErrorLogger_1 = require("./utils/CryptoLiteErrorLogger");
 /****************************************************************
 * CryptoLite Backend FrameWork for Lite Projects                *
 *    - Not Suppoting  MiddleWares Until Now :(                  *
@@ -62,19 +63,44 @@ const cryptolite = () => {
                 if (req.url == server.paths[i].path) {
                     switch (req.method) {
                         case "GET":
-                            server.paths[i].methods.get(req, res);
+                            try {
+                                server.paths[i].methods.get(req, res);
+                            }
+                            catch (err) {
+                                (0, CryptoLiteErrorLogger_1.CryptoLiteErrorLogger)(req, res, `Error GET Didn,t avialable for path : ${server.paths[i].path}  , Provided`);
+                            }
                             break;
                         case "POST":
-                            server.paths[i].methods.post(req, res);
+                            try {
+                                server.paths[i].methods.post(req, res);
+                            }
+                            catch (err) {
+                                (0, CryptoLiteErrorLogger_1.CryptoLiteErrorLogger)(req, res, `Error POST Didn,t avialable for path : ${server.paths[i].path}  , Provided`);
+                            }
                             break;
                         case "DELETE":
-                            server.paths[i].methods.delete(req, res);
+                            try {
+                                server.paths[i].methods.delete(req, res);
+                            }
+                            catch (err) {
+                                (0, CryptoLiteErrorLogger_1.CryptoLiteErrorLogger)(req, res, `Error DELETE Didn,t avialable for path : ${server.paths[i].path}  , Provided`);
+                            }
                             break;
                         case "PUT":
-                            server.paths[i].methods.put(req, res);
+                            try {
+                                server.paths[i].methods.put(req, res);
+                            }
+                            catch (err) {
+                                (0, CryptoLiteErrorLogger_1.CryptoLiteErrorLogger)(req, res, `Error PUT Didn,t avialable for path : ${server.paths[i].path}  , Provided`);
+                            }
                             break;
                         case "PATCH":
-                            server.paths[i].methods.patch(req, res);
+                            try {
+                                server.paths[i].methods.patch(req, res);
+                            }
+                            catch (err) {
+                                (0, CryptoLiteErrorLogger_1.CryptoLiteErrorLogger)(req, res, `Error DELETE Didn,t avialable for path : ${server.paths[i].path}  , Provided`);
+                            }
                     }
                 }
             }
