@@ -1,8 +1,21 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.cryptolite = void 0;
 const http_1 = require("http");
 const pathChecker_1 = require("./utils/pathChecker");
-let cryptolite = () => {
+/****************************************************************
+* CryptoLite Backend FrameWork for Lite Projects                *
+*    - Not Suppoting  MiddleWares Until Now :(                  *
+*                                                               *
+*    ✔ There is Basic Routing                                   *
+*    ✔ There is Body Parser by Default                          *
+*    ✔ Easy in Usage Like Express                               *
+*                                                               *
+*   Author : Eslam Mohamed Moawed Elabd                         *
+*   License : MIT                                               *
+*                                                               *
+ ****************************************************************/
+const cryptolite = () => {
     let server = (0, http_1.createServer)((req, res) => {
         req.body = {};
         let body = '';
@@ -66,63 +79,6 @@ let cryptolite = () => {
                 }
             }
         });
-        /*  if(req.url){
-              if(req.url.length>1 && req.url[req.url.length-1]==="/"){
-                  req.url=req.url.slice(0,req.url.length-1)
-              }
-          }
-          res.setStatus =(code)=>{
-              if(typeof code==="number" && !isNaN(code) &&code>0 && code<600 ){
-                   res.status=code
-                   }
-                    return res
-          }
-          res.writeHtml=(data:string)=>{
-              if(!res.status){
-                  res.setStatus(200)
-              }
-              res.writeHead(res.status,{"Content-Type":"text/html"})
-              res.write(data)
-              res.end()
-          }
-  
-          res.writeJson=(data:object)=>{
-              if(!res.status){
-                  res.setStatus(200)
-              }
-              res.writeHead(res.status,{"Content-Type":"application/json"})
-              res.write(JSON.stringify(data))
-              res.end()
-          }
-       
-  
-          
-  
-          for(let i =0 ; i<server.paths.length;i++){
-              if(req.url==server.paths[i].path){
-                  switch (req.method){
-                      case "GET":
-                          server.paths[i].methods.get(req,res);
-                          break;
-                      case "POST":
-                          server.paths[i].methods.post(req,res);
-                          break;
-                      case "DELETE":
-                          server.paths[i].methods.delete(req,res);
-                          break;
-                      case "PUT":
-                          server.paths[i].methods.put(req,res);
-                          break;
-                      case "PATCH":
-                          server.paths[i].methods.patch(req,res);
-                  }
-              }
-      
-          }
-  
-  
-  
-      }) */
     });
     server.paths = [];
     server.get = function (path, handle) {
@@ -159,19 +115,6 @@ let cryptolite = () => {
     };
     return server;
 };
-let app = cryptolite();
-app.allMethods("/", (req, res) => {
-    res.writeHtml(`<form method="post" action="/eslam">
-    <label for="fname">First name:</label><br>
-    <input type="text" id="fname" value="John"><br><br>
-    <input type="submit" value="Submit">
-  </form>"`);
-});
-app.allMethods("/api", (req, res) => {
-    console.log(req.body);
-    if (req.body["username"] === "eslam") {
-        res.writeJson({ message: "success" });
-    }
-});
-app.listen(80);
+exports.cryptolite = cryptolite;
+exports.default = { cryptolite: cryptolite };
 //# sourceMappingURL=CryptoLite.js.map

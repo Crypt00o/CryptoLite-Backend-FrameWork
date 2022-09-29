@@ -16,7 +16,7 @@ import {pathsChecker} from "./utils/pathChecker"
  ****************************************************************/
 
 
-export const cryptolite=()=>{
+ const cryptolite=()=>{
 
    let server:any=createServer((req:any,res:any)=>{
     
@@ -135,3 +135,5 @@ export const cryptolite=()=>{
 
 } 
 
+export {cryptolite}
+export default {cryptolite:cryptolite}

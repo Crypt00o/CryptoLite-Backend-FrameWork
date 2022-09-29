@@ -5,7 +5,11 @@
   "main": "build/CryptoLite.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-      "build":"npx tsc "
+      "build":"npx tsc"
+  },
+  "repository": {
+    "directory": "Crypt00o/CryptoLite-Backend-FrameWork"
+    ,"url": "https://github.com/Crypt00o/CryptoLite-Backend-FrameWork"
   },
   "keywords": ["Lite","lite","CryptoLite","cryptolite"],
   "author": "Eslam Mohamed Moawed Elabd",
