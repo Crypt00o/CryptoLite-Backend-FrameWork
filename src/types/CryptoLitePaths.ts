@@ -1,2 +1,20 @@
-export type CryptoLitePath={path:string,methods:{get?:{handle?:Function,middlewares?:[]},post?:{handle?:Function,middlewares?:[]},delete?:{handle?:Function,middlewares?:[]},put?:{handle?:Function,middlewares?:[]},patch?:{handle?:Function,middlewares?:[]}}}
-export type CryptoLitePathChecker={found:boolean,index:number}
+export type CryptoLitePath={
+    path:string,methods:
+    {
+        get?:{
+            middlewares?:Array<Function>
+        },
+        post?:{
+            middlewares?:Array<Function>
+        },
+        delete?:{
+            middlewares?:Array<Function>
+        },
+        put?:{
+            middlewares?:Array<Function>
+        },
+        patch?:{
+            middlewares?:Array<Function>
+        }
+    }
+}

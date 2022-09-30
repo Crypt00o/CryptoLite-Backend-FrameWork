@@ -10,10 +10,9 @@
         - support Body Parseing Natively. 
         - support handling requests with several paths and methods.
         - better option for lightweight projects and webservices. 
-
+        - [New in 1.0.2 version ] MiddleWare Support ! for whole Application or for Invidial EndPoints With Several Methods
     - ### What is in the Next Version ?
         - Advanced Routing Support .
-        - MiddleWares Support .
         - give it more Functionality .
 
     - ### Usage  
@@ -24,8 +23,8 @@
  
 #### Eslam Mohamed Moawed Elabd
 
-know as 0xCrypt00o 
+known as 0xCrypt00o 
 
 ### This Project is under Devlopment.
 
-####License : MIT license
+#### License : MIT license
