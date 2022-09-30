@@ -4,23 +4,23 @@ exports.CryptoLiteResponse = void 0;
 const CryptoLiteResponse = (res) => {
     res.setStatus = (code) => {
         if (typeof code === "number" && !isNaN(code) && code > 0 && code < 600) {
-            res.status = code;
+            res.statusCode = code;
         }
         return res;
     };
     res.writeHtml = (data) => {
-        if (!res.status) {
+        if (!res.statusCode) {
             res.setStatus(200);
         }
-        res.writeHead(res.status, { "Content-Type": "text/html" });
+        res.writeHead(res.statusCode, { "Content-Type": "text/html" });
         res.write(data);
         res.end();
     };
     res.writeJson = (data) => {
-        if (!res.status) {
+        if (!res.statusCode) {
             res.setStatus(200);
         }
-        res.writeHead(res.status, { "Content-Type": "application/json" });
+        res.writeHead(res.statusCode, { "Content-Type": "application/json" });
         res.write(JSON.stringify(data));
         res.end();
     };

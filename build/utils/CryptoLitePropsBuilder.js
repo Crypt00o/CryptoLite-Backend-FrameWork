@@ -67,6 +67,48 @@ const CryptoLitePropsBuilder = (server) => {
                 };
         }
     };
+    server.path = (url) => {
+        return new (class path {
+            constructor(url) {
+                this.route = url;
+            }
+            get(...handles) {
+                server.paths[((0, pathChecker_1.pathsChecker)(server.paths, this.route))].methods.get =
+                    {
+                        middlewares: handles
+                    };
+                return this;
+            }
+            post(...handles) {
+                server.paths[((0, pathChecker_1.pathsChecker)(server.paths, this.route))].methods.post =
+                    {
+                        middlewares: handles
+                    };
+                return this;
+            }
+            patch(...handles) {
+                server.paths[((0, pathChecker_1.pathsChecker)(server.paths, this.route))].methods.patch =
+                    {
+                        middlewares: handles
+                    };
+                return this;
+            }
+            delete(...handles) {
+                server.paths[((0, pathChecker_1.pathsChecker)(server.paths, this.route))].methods.delete =
+                    {
+                        middlewares: handles
+                    };
+                return this;
+            }
+            put(...handles) {
+                server.paths[((0, pathChecker_1.pathsChecker)(server.paths, this.route))].methods.put =
+                    {
+                        middlewares: handles
+                    };
+                return this;
+            }
+        })(url);
+    };
     server.middle = (handle) => {
         server.middlewares.push(handle);
     };
