@@ -1,7 +1,26 @@
 export declare type CryptoLitePath = {
     path: string;
     methods: {
-        get?: Function;
+        get?: {
+            handle?: Function;
+            middlewares?: [];
+        };
+        post?: {
+            handle?: Function;
+            middlewares?: [];
+        };
+        delete?: {
+            handle?: Function;
+            middlewares?: [];
+        };
+        put?: {
+            handle?: Function;
+            middlewares?: [];
+        };
+        patch?: {
+            handle?: Function;
+            middlewares?: [];
+        };
     };
 };
 export declare type CryptoLitePathChecker = {
