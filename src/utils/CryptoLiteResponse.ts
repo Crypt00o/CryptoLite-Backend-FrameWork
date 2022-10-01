@@ -1,9 +1,12 @@
 export const CryptoLiteResponse=(res:any)=>{
-    res.CryptoLite={
-        cookies:[]
-    }
+    res.CryptoLite={}
     res.setCookie=function(CryptoLiteCookieName:string,CryptoLiteCookieValue:string,options?:{path?:string,httpOnly?:boolean,secure?:boolean,sameSite?:"strict"|"lax"|"none",expires?:number}){
-        
+        if(!this.CryptoLite){
+            this.CryptoLite={}
+        }
+        if(!this.CryptoLite.cookies){
+            this.CryptoLite.cookies=[]
+        }
         let CryptoLiteCookie:string=CryptoLiteCookieName.concat("=",CryptoLiteCookieValue);
         if(options){
             if(options.hasOwnProperty("httpOnly")){
@@ -17,7 +20,7 @@ export const CryptoLiteResponse=(res:any)=>{
                 }
             }
             if(options.hasOwnProperty("expires")){
-                CryptoLiteCookie=CryptoLiteCookie.concat(";expires=",new Date(options.expires).toISOString())
+                CryptoLiteCookie=CryptoLiteCookie.concat(";expires=",new Date(options.expires).toUTCString())
             }
             if(options.hasOwnProperty("sameSite")){
                 if(options.sameSite){
@@ -37,7 +40,11 @@ export const CryptoLiteResponse=(res:any)=>{
        
     }
 
-
+    res.deleteCookie=function(CryptoLiteCookieName:string){
+        
+        this.setCookie(CryptoLiteCookieName,"",{expires:Date.now()-1000})
+        
+    }
 
     res.setStatus =(code)=>{
         if(typeof code==="number" && !isNaN(code) &&code>0 && code<600 ){
