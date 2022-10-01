@@ -6,6 +6,7 @@ const CryptoLiteMiddleFlow_1 = require("./utils/CryptoLiteMiddleFlow");
 const CryptoLiteResponse_1 = require("./utils/CryptoLiteResponse");
 const CryptoLiteBasicRouter_1 = require("./utils/CryptoLiteBasicRouter");
 const CryptoLitePropsBuilder_1 = require("./utils/CryptoLitePropsBuilder");
+const CryptoLiteRequest_1 = require("./utils/CryptoLiteRequest");
 /****************************************************************
 * CryptoLite Backend FrameWork for Lite Projects                *
 *    - Not Suppoting  MiddleWares Until Now :(                  *
@@ -39,6 +40,7 @@ const cryptolite = () => {
                     req.url = req.url.slice(0, req.url.length - 1);
                 }
             }
+            (0, CryptoLiteRequest_1.CryptoLiteRequest)(req);
             (0, CryptoLiteResponse_1.CryptoLiteResponse)(res);
             (0, CryptoLiteMiddleFlow_1.CryptoLiteMiddleFlow)(server.middlewares, req, res);
             (0, CryptoLiteBasicRouter_1.CryptoLiteBasicRouter)(server.paths, req, res);

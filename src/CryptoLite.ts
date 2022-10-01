@@ -3,6 +3,7 @@ import { CryptoLiteMiddleFlow } from "./utils/CryptoLiteMiddleFlow"
 import { CryptoLiteResponse } from "./utils/CryptoLiteResponse"
 import { CryptoLiteBasicRouter } from "./utils/CryptoLiteBasicRouter"
 import { CryptoLitePropsBuilder } from "./utils/CryptoLitePropsBuilder"
+import { CryptoLiteRequest } from "./utils/CryptoLiteRequest"
 
 /****************************************************************
 * CryptoLite Backend FrameWork for Lite Projects                *
@@ -46,7 +47,7 @@ import { CryptoLitePropsBuilder } from "./utils/CryptoLitePropsBuilder"
             req.url=req.url.slice(0,req.url.length-1)
         }
     }
-
+CryptoLiteRequest(req);
 CryptoLiteResponse(res);
 CryptoLiteMiddleFlow(server.middlewares,req,res);
 CryptoLiteBasicRouter(server.paths,req,res)
