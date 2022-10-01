@@ -37,36 +37,26 @@ export const CryptoLitePropsBuilder=(server:any)=>{
        }
 }
     server.allMethods=function(path:string,...handles:Array<Function>){
-        if(!this.paths[(pathsChecker(this.paths,path))].methods.get){
             this.paths[(pathsChecker(this.paths,path))].methods.get=
             {
                 middlewares:handles
-               }
-        }
-        if(!this.paths[(pathsChecker(this.paths,path))].methods.post){
+            }
             this.paths[(pathsChecker(this.paths,path))].methods.post=
             {
                 middlewares:handles
-               }
-        }
-        if(!this.paths[(pathsChecker(this.paths,path))].methods.delete){
+            }
             this.paths[(pathsChecker(this.paths,path))].methods.delete=
             {
                 middlewares:handles
-               }
-        }
-        if(!this.paths[(pathsChecker(this.paths,path))].methods.patch){
+            }
             this.paths[(pathsChecker(this.paths,path))].methods.patch=
             {
                 middlewares:handles
-               }
-        }
-        if(!this.paths[(pathsChecker(this.paths,path))].methods.put){
+            }
             this.paths[(pathsChecker(this.paths,path))].methods.put=
             {
                 middlewares:handles
-               }
-        }
+            }
     }
     
     server.path=(url)=>{return new (class path{
@@ -107,13 +97,52 @@ export const CryptoLitePropsBuilder=(server:any)=>{
             {
              middlewares:handles
             }
-    return this
-}
+        return this
+    }
+        allMethods(...handles:Array<Function>){
+
+                server.paths[(pathsChecker(server.paths,this.route))].methods.get=
+                {
+                    middlewares:handles
+                   }
+
+        
+                server.paths[(pathsChecker(server.paths,this.route))].methods.post=
+                {
+                    middlewares:handles
+                   }
+            
+            
+                server.paths[(pathsChecker(server.paths,this.route))].methods.patch=
+                {
+                    middlewares:handles
+                   }
+            
+            if(!server.paths[(pathsChecker(server.paths,this.route))].methods.delete){
+                server.paths[(pathsChecker(server.paths,this.route))].methods.delete=
+                {
+                    middlewares:handles
+                   }
+            }
+            
+                server.paths[(pathsChecker(server.paths,this.route))].methods.put=
+                {
+                    middlewares:handles
+                   }
+            
+            return this
+        }
 
     })(url)};
 
-    server.middle=(handle:Function)=> {
-     server.middlewares.push(handle)   
+    server.middle=function(...handles:Array<Function>){
+ 
+        if(typeof handles[0]==="string"){
+            server.paths[(pathsChecker(server.paths,handles[0]))].middlewares.push(...handles.slice(1))
+        }
+        else{
+            server.middlewares.push(...handles)   
+        }
     }
 
 }

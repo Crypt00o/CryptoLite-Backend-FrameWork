@@ -17,4 +17,5 @@ export declare type CryptoLitePath = {
             middlewares?: Array<Function>;
         };
     };
+    middlewares: Array<Function>;
 };

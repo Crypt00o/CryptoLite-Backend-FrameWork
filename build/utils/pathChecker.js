@@ -7,7 +7,7 @@ let pathsChecker = (paths, path) => {
             return i;
         }
     }
-    paths.push({ path: path, methods: {} });
+    paths.push({ path: path, methods: {}, middlewares: [] });
     return paths.length - 1;
 };
 exports.pathsChecker = pathsChecker;

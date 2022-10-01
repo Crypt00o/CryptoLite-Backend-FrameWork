@@ -6,7 +6,7 @@ export let pathsChecker=(paths:Array<CryptoLitePath>,path:string):number=>{
             return i
         }
     }
-    paths.push({path:path,methods:{}})
+    paths.push({path:path,methods:{},middlewares:[]})
     return paths.length-1
 
 }

@@ -4,6 +4,7 @@ import { CryptoLiteMiddleFlow } from "./CryptoLiteMiddleFlow";
 export const CryptoLiteBasicRouter=(paths,req,res)=>{
     for(let i =0 ; i<paths.length;i++){
         if(req.url==paths[i].path){
+            CryptoLiteMiddleFlow(paths[i].middlewares,req,res)
             switch (req.method){
                 case "GET":
                     try{

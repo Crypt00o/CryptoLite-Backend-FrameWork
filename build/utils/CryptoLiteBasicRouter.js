@@ -6,6 +6,7 @@ const CryptoLiteMiddleFlow_1 = require("./CryptoLiteMiddleFlow");
 const CryptoLiteBasicRouter = (paths, req, res) => {
     for (let i = 0; i < paths.length; i++) {
         if (req.url == paths[i].path) {
+            (0, CryptoLiteMiddleFlow_1.CryptoLiteMiddleFlow)(paths[i].middlewares, req, res);
             switch (req.method) {
                 case "GET":
                     try {

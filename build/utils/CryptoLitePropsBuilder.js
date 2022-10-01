@@ -36,36 +36,26 @@ const CryptoLitePropsBuilder = (server) => {
             };
     };
     server.allMethods = function (path, ...handles) {
-        if (!this.paths[((0, pathChecker_1.pathsChecker)(this.paths, path))].methods.get) {
-            this.paths[((0, pathChecker_1.pathsChecker)(this.paths, path))].methods.get =
-                {
-                    middlewares: handles
-                };
-        }
-        if (!this.paths[((0, pathChecker_1.pathsChecker)(this.paths, path))].methods.post) {
-            this.paths[((0, pathChecker_1.pathsChecker)(this.paths, path))].methods.post =
-                {
-                    middlewares: handles
-                };
-        }
-        if (!this.paths[((0, pathChecker_1.pathsChecker)(this.paths, path))].methods.delete) {
-            this.paths[((0, pathChecker_1.pathsChecker)(this.paths, path))].methods.delete =
-                {
-                    middlewares: handles
-                };
-        }
-        if (!this.paths[((0, pathChecker_1.pathsChecker)(this.paths, path))].methods.patch) {
-            this.paths[((0, pathChecker_1.pathsChecker)(this.paths, path))].methods.patch =
-                {
-                    middlewares: handles
-                };
-        }
-        if (!this.paths[((0, pathChecker_1.pathsChecker)(this.paths, path))].methods.put) {
-            this.paths[((0, pathChecker_1.pathsChecker)(this.paths, path))].methods.put =
-                {
-                    middlewares: handles
-                };
-        }
+        this.paths[((0, pathChecker_1.pathsChecker)(this.paths, path))].methods.get =
+            {
+                middlewares: handles
+            };
+        this.paths[((0, pathChecker_1.pathsChecker)(this.paths, path))].methods.post =
+            {
+                middlewares: handles
+            };
+        this.paths[((0, pathChecker_1.pathsChecker)(this.paths, path))].methods.delete =
+            {
+                middlewares: handles
+            };
+        this.paths[((0, pathChecker_1.pathsChecker)(this.paths, path))].methods.patch =
+            {
+                middlewares: handles
+            };
+        this.paths[((0, pathChecker_1.pathsChecker)(this.paths, path))].methods.put =
+            {
+                middlewares: handles
+            };
     };
     server.path = (url) => {
         return new (class path {
@@ -107,10 +97,40 @@ const CryptoLitePropsBuilder = (server) => {
                     };
                 return this;
             }
+            allMethods(...handles) {
+                server.paths[((0, pathChecker_1.pathsChecker)(server.paths, this.route))].methods.get =
+                    {
+                        middlewares: handles
+                    };
+                server.paths[((0, pathChecker_1.pathsChecker)(server.paths, this.route))].methods.post =
+                    {
+                        middlewares: handles
+                    };
+                server.paths[((0, pathChecker_1.pathsChecker)(server.paths, this.route))].methods.patch =
+                    {
+                        middlewares: handles
+                    };
+                if (!server.paths[((0, pathChecker_1.pathsChecker)(server.paths, this.route))].methods.delete) {
+                    server.paths[((0, pathChecker_1.pathsChecker)(server.paths, this.route))].methods.delete =
+                        {
+                            middlewares: handles
+                        };
+                }
+                server.paths[((0, pathChecker_1.pathsChecker)(server.paths, this.route))].methods.put =
+                    {
+                        middlewares: handles
+                    };
+                return this;
+            }
         })(url);
     };
-    server.middle = (handle) => {
-        server.middlewares.push(handle);
+    server.middle = function (...handles) {
+        if (typeof handles[0] === "string") {
+            server.paths[((0, pathChecker_1.pathsChecker)(server.paths, handles[0]))].middlewares.push(...handles.slice(1));
+        }
+        else {
+            server.middlewares.push(...handles);
+        }
     };
 };
 exports.CryptoLitePropsBuilder = CryptoLitePropsBuilder;

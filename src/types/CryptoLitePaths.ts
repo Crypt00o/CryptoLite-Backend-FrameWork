@@ -16,5 +16,6 @@ export type CryptoLitePath={
         patch?:{
             middlewares?:Array<Function>
         }
-    }
+    },
+    middlewares:Array<Function>
 }
