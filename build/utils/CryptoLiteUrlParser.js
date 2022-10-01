@@ -42,28 +42,34 @@ const queryParser = (url) => {
     }
     return query;
 };
-const paramsParser = (url) => {
-    const results = url.match(/\?(:<query>.*)/);
-    if (!results) {
-        return {};
+const cryptoLiteParamsFactory = (url) => {
+    let params = "";
+    for (let i = 0; i < url.length; i++) {
+        const character = url.charAt(i);
+        if (character === ":") {
+            let param = "";
+            for (var j = i + 1; j < url.length; j++) {
+                if (/\w/.test(url.charAt(j))) {
+                    param += url.charAt(j);
+                }
+                else {
+                    break;
+                }
+            }
+            params += `(?<${param}>\\w+)`;
+            i = j - 1;
+        }
+        else {
+            params += character;
+        }
     }
-    const { groups: { query } } = results;
-    const pairs = query.match(/(:<param>\w+)=(?<value>\w+)/g);
-    if (!pairs) {
-        return {};
-    }
-    const params = pairs.reduce((acc, curr) => {
-        const [key, value] = curr.split(("="));
-        acc[key] = value;
-        return acc;
-    }, {});
     return params;
 };
 const UrlParser = (req) => {
     const url = decodeURI(req.url);
     req.query = queryParser(url);
-    req.params = paramsParser(url);
     console.log(req);
 };
 exports.UrlParser = UrlParser;
+(0, exports.UrlParser)({ url: "/eslam/mohamed/elabd?q=search" });
 //# sourceMappingURL=CryptoLiteUrlParser.js.map
