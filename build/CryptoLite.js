@@ -1,12 +1,14 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.cryptolite = void 0;
+exports.cryptoCookie = exports.cryptolite = void 0;
 const http_1 = require("http");
 const CryptoLiteMiddleFlow_1 = require("./utils/CryptoLiteMiddleFlow");
 const CryptoLiteResponse_1 = require("./utils/CryptoLiteResponse");
 const CryptoLiteBasicRouter_1 = require("./utils/CryptoLiteBasicRouter");
 const CryptoLitePropsBuilder_1 = require("./utils/CryptoLitePropsBuilder");
 const CryptoLiteRequest_1 = require("./utils/CryptoLiteRequest");
+const CryptoLiteCookieMiddle_1 = require("./utils/CryptoLiteCookieMiddle");
+Object.defineProperty(exports, "cryptoCookie", { enumerable: true, get: function () { return CryptoLiteCookieMiddle_1.cryptoCookie; } });
 /****************************************************************
 * CryptoLite Backend FrameWork for Lite Projects                *
 *    - Not Suppoting  MiddleWares Until Now :(                  *

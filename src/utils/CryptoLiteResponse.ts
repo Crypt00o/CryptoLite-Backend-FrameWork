@@ -1,14 +1,28 @@
+import { cryptoLiteCookieSigner } from "./CryptoLiteCookieMiddle"
+
+
+
 export const CryptoLiteResponse=(res:any)=>{
     res.CryptoLite={}
-    res.setCookie=function(CryptoLiteCookieName:string,CryptoLiteCookieValue:string,options?:{path?:string,httpOnly?:boolean,secure?:boolean,sameSite?:"strict"|"lax"|"none",expires?:number}){
+    res.setCookie=function(CryptoLiteCookieName:string,CryptoLiteCookieValue:string,options?:{path?:string,httpOnly?:boolean,secure?:boolean,sameSite?:"strict"|"lax"|"none",expires?:number,signed?:boolean}){
         if(!this.CryptoLite){
             this.CryptoLite={}
         }
         if(!this.CryptoLite.cookies){
             this.CryptoLite.cookies=[]
         }
+        if(!this.CryptoLite.secret){
+            this.CryptoLite.secret="CryptoLite"
+        }
+
         let CryptoLiteCookie:string=CryptoLiteCookieName.concat("=",CryptoLiteCookieValue);
         if(options){
+
+            if(options.hasOwnProperty("signed")){
+                if(options.signed){
+                    CryptoLiteCookie=CryptoLiteCookieName.concat("=",cryptoLiteCookieSigner(CryptoLiteCookieValue,this.CryptoLite.secret))        
+                }
+            }
             if(options.hasOwnProperty("httpOnly")){
                 if(options.httpOnly){
                     CryptoLiteCookie=CryptoLiteCookie.concat(";HttpOnly")
@@ -27,6 +41,7 @@ export const CryptoLiteResponse=(res:any)=>{
                 CryptoLiteCookie=CryptoLiteCookie.concat(";SameSite=",options.sameSite)
                 }
             }
+            
             if(options.hasOwnProperty("path")){
                 if(options.path){
                 CryptoLiteCookie=CryptoLiteCookie.concat(";Path=",options.path)

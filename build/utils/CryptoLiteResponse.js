@@ -1,6 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.CryptoLiteResponse = void 0;
+const CryptoLiteCookieMiddle_1 = require("./CryptoLiteCookieMiddle");
 const CryptoLiteResponse = (res) => {
     res.CryptoLite = {};
     res.setCookie = function (CryptoLiteCookieName, CryptoLiteCookieValue, options) {
@@ -10,8 +11,16 @@ const CryptoLiteResponse = (res) => {
         if (!this.CryptoLite.cookies) {
             this.CryptoLite.cookies = [];
         }
+        if (!this.CryptoLite.secret) {
+            this.CryptoLite.secret = "CryptoLite";
+        }
         let CryptoLiteCookie = CryptoLiteCookieName.concat("=", CryptoLiteCookieValue);
         if (options) {
+            if (options.hasOwnProperty("signed")) {
+                if (options.signed) {
+                    CryptoLiteCookie = CryptoLiteCookieName.concat("=", (0, CryptoLiteCookieMiddle_1.cryptoLiteCookieSigner)(CryptoLiteCookieValue, this.CryptoLite.secret));
+                }
+            }
             if (options.hasOwnProperty("httpOnly")) {
                 if (options.httpOnly) {
                     CryptoLiteCookie = CryptoLiteCookie.concat(";HttpOnly");

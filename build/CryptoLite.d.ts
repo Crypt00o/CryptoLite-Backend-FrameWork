@@ -1,3 +1,4 @@
+import { cryptoCookie } from "./utils/CryptoLiteCookieMiddle";
 /****************************************************************
 * CryptoLite Backend FrameWork for Lite Projects                *
 *    - Not Suppoting  MiddleWares Until Now :(                  *
@@ -11,7 +12,7 @@
 *                                                               *
  ****************************************************************/
 declare const cryptolite: () => any;
-export { cryptolite };
+export { cryptolite, cryptoCookie };
 declare const _default: {
     cryptolite: () => any;
 };

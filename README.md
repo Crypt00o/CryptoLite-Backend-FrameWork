@@ -11,6 +11,7 @@
         - support handling requests with several paths and methods.
         - better option for lightweight projects and webservices. 
         - [New in 1.0.2 version ] MiddleWare Support ! for whole Application or for Invidial EndPoints With Several Methods
+        - [New in 1.0.3 version ] Native Cookie Functions Support and Support Signed Cookie Also! 
     - ### What is in the Next Version ?
         - Advanced Routing Support .
         - give it more Functionality .

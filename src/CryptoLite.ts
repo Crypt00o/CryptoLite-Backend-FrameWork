@@ -4,7 +4,7 @@ import { CryptoLiteResponse } from "./utils/CryptoLiteResponse"
 import { CryptoLiteBasicRouter } from "./utils/CryptoLiteBasicRouter"
 import { CryptoLitePropsBuilder } from "./utils/CryptoLitePropsBuilder"
 import { CryptoLiteRequest } from "./utils/CryptoLiteRequest"
-
+import { cryptoCookie } from "./utils/CryptoLiteCookieMiddle"
 /****************************************************************
 * CryptoLite Backend FrameWork for Lite Projects                *
 *    - Not Suppoting  MiddleWares Until Now :(                  *
@@ -64,5 +64,5 @@ return server
 
 } 
 
-export {cryptolite}
+export {cryptolite,cryptoCookie}
 export default {cryptolite:cryptolite}
