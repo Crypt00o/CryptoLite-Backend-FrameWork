@@ -1,6 +1,7 @@
+import { cryptoLiteParamsFactory } from "./CryptoLiteUrlParser"
 export let createRuleIfNotExists=(routeTable:object,path:string):string=>{
-    if(!routeTable.hasOwnProperty(path)){
-        routeTable[path]={methods:{},middlewares:[]}
+    if(!routeTable.hasOwnProperty(cryptoLiteParamsFactory(path) )){
+        routeTable[cryptoLiteParamsFactory(path)]={methods:{},middlewares:[]}
     }
-    return path
+    return cryptoLiteParamsFactory(path)
 }

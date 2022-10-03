@@ -1,7 +1,7 @@
 
 
-export const queryParser=(url)=>{
-
+export const queryParser=(url:string)=>{
+        url=decodeURI(url)
         let queryString =  url.split('?')[1]
         let query = {};
 
@@ -52,7 +52,7 @@ export const queryParser=(url)=>{
 }
 
 
-const cryptoLiteParamsFactory=(url:string)=>{
+export const cryptoLiteParamsFactory=(url)=>{
   let params = "";
 
   for (let i =0; i < url.length; i++) {
@@ -75,12 +75,6 @@ const cryptoLiteParamsFactory=(url:string)=>{
   return params;
 }
 
-
-
-export const UrlParser=(req)=>{
-   const url=decodeURI(req.url)
-   req.query=queryParser(url)
-}
 
 
 

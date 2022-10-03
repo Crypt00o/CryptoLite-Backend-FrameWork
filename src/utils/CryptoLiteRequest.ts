@@ -1,8 +1,15 @@
 import { queryParser } from "./CryptoLiteUrlParser"
 
 export const CryptoLiteRequest=(req)=>{
-req.cookies={}
 
+
+
+
+
+req.cookies={}
+req.params={}
+req.originalUrl=req.url
+req.url=decodeURI(req.url)
 if(req.headers['cookie']){
    let cookieUnparsed:Array<string>=req.headers['cookie'].split("; ")
    for(let i =0;i<cookieUnparsed.length;i++){
@@ -10,7 +17,15 @@ if(req.headers['cookie']){
    }
 }
 
+if(req.url.indexOf("?")!=-1){
+req.path=decodeURI( (req.url).slice(0,req.url.indexOf("?")) )
+}
+else{
+   req.path=decodeURI(req.url)
+}
+
+if(req.path.length>1 && req.path[req.path.length-1]==="/"){
+   req.path=req.path.slice(0,req.path.length-1)
+}
 req.query=queryParser(req.url)
-
-
 }

@@ -1,10 +1,12 @@
 import { createRuleIfNotExists } from "./pathChecker"
 
-export const CryptoLitePropsBuilder=(server:any)=>{
+export const CryptoLitePropsBuilder=function(server:any){
     
     server.routeTable=new Object()
     
     server.middlewares=new Array()
+
+    server.routers=new Array()
     
 
     server.get=function(path:string,...handles:Array<Function>){
@@ -147,12 +149,18 @@ export const CryptoLitePropsBuilder=(server:any)=>{
                 if(typeof handles[i]==="function"){
                     this.routeTable[(createRuleIfNotExists(this.routeTable,path))].middlewares.push(handles[i])
                 }
+                if(typeof handles[i]==="object" && handles[i]!==null && (handles[i] as object).hasOwnProperty("CryptoLiteRouter") && (handles[i] as object)["CryptoLiteRouter"]===true ){
+                    this.routers.push(handles[i])
+                }
             }
         }
         else{
             for(let i=0 ; i<handles.length;i++){
                 if(typeof handles[i]==="function"){
                     this.middlewares.push(...handles)
+                }
+                if(typeof handles[i]==="object" && handles[i]!==null && (handles[i] as object).hasOwnProperty("CryptoLiteRouter") && (handles[i] as object)["CryptoLiteRouter"]===true ){
+                    this.routers.push(handles[i])
                 }
             }
                

@@ -1,7 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.CryptoLiteMiddleFlow = void 0;
-const CryptoLiteMiddleFlow = (middlewares, req, res) => {
+const CryptoLiteMiddleFlow = function (middlewares, req, res) {
     let i = -1;
     let middleFlow = () => {
         i++;

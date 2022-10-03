@@ -1,7 +1,8 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.UrlParser = exports.queryParser = void 0;
+exports.cryptoLiteParamsFactory = exports.queryParser = void 0;
 const queryParser = (url) => {
+    url = decodeURI(url);
     let queryString = url.split('?')[1];
     let query = {};
     if (queryString) {
@@ -66,9 +67,5 @@ const cryptoLiteParamsFactory = (url) => {
     }
     return params;
 };
-const UrlParser = (req) => {
-    const url = decodeURI(req.url);
-    req.query = (0, exports.queryParser)(url);
-};
-exports.UrlParser = UrlParser;
+exports.cryptoLiteParamsFactory = cryptoLiteParamsFactory;
 //# sourceMappingURL=CryptoLiteUrlParser.js.map

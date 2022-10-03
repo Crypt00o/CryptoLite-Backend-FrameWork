@@ -1,4 +1,4 @@
-export const CryptoLiteMiddleFlow=(middlewares,req,res)=>{
+export const CryptoLiteMiddleFlow=function(middlewares,req,res){
     let i =-1
     let middleFlow=()=>{
         i++

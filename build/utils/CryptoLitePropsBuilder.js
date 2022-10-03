@@ -2,9 +2,10 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.CryptoLitePropsBuilder = void 0;
 const pathChecker_1 = require("./pathChecker");
-const CryptoLitePropsBuilder = (server) => {
+const CryptoLitePropsBuilder = function (server) {
     server.routeTable = new Object();
     server.middlewares = new Array();
+    server.routers = new Array();
     server.get = function (path, ...handles) {
         this.routeTable[((0, pathChecker_1.createRuleIfNotExists)(this.routeTable, path))].methods.get =
             {
@@ -130,12 +131,18 @@ const CryptoLitePropsBuilder = (server) => {
                 if (typeof handles[i] === "function") {
                     this.routeTable[((0, pathChecker_1.createRuleIfNotExists)(this.routeTable, path))].middlewares.push(handles[i]);
                 }
+                if (typeof handles[i] === "object" && handles[i] !== null && handles[i].hasOwnProperty("CryptoLiteRouter") && handles[i]["CryptoLiteRouter"] === true) {
+                    this.routers.push(handles[i]);
+                }
             }
         }
         else {
             for (let i = 0; i < handles.length; i++) {
                 if (typeof handles[i] === "function") {
                     this.middlewares.push(...handles);
+                }
+                if (typeof handles[i] === "object" && handles[i] !== null && handles[i].hasOwnProperty("CryptoLiteRouter") && handles[i]["CryptoLiteRouter"] === true) {
+                    this.routers.push(handles[i]);
                 }
             }
         }
