@@ -1,6 +1,6 @@
 
 
-const queryParser=(url)=>{
+export const queryParser=(url)=>{
 
         let queryString =  url.split('?')[1]
         let query = {};
@@ -80,10 +80,8 @@ const cryptoLiteParamsFactory=(url:string)=>{
 export const UrlParser=(req)=>{
    const url=decodeURI(req.url)
    req.query=queryParser(url)
-   console.log(req)
 }
 
 
-UrlParser({url:"/eslam/mohamed/elabd?q=search"})
 
 

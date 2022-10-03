@@ -4,7 +4,7 @@ exports.cryptoCookie = exports.cryptolite = void 0;
 const http_1 = require("http");
 const CryptoLiteMiddleFlow_1 = require("./utils/CryptoLiteMiddleFlow");
 const CryptoLiteResponse_1 = require("./utils/CryptoLiteResponse");
-const CryptoLiteBasicRouter_1 = require("./utils/CryptoLiteBasicRouter");
+const CryptoLiteBaseRouter_1 = require("./utils/CryptoLiteBaseRouter");
 const CryptoLitePropsBuilder_1 = require("./utils/CryptoLitePropsBuilder");
 const CryptoLiteRequest_1 = require("./utils/CryptoLiteRequest");
 const CryptoLiteCookieMiddle_1 = require("./utils/CryptoLiteCookieMiddle");
@@ -45,7 +45,7 @@ const cryptolite = () => {
             (0, CryptoLiteRequest_1.CryptoLiteRequest)(req);
             (0, CryptoLiteResponse_1.CryptoLiteResponse)(res);
             (0, CryptoLiteMiddleFlow_1.CryptoLiteMiddleFlow)(server.middlewares, req, res);
-            (0, CryptoLiteBasicRouter_1.CryptoLiteBasicRouter)(server.paths, req, res);
+            (0, CryptoLiteBaseRouter_1.CryptoLiteBaseRouter)(server.routeTable, req, res);
         });
     });
     (0, CryptoLitePropsBuilder_1.CryptoLitePropsBuilder)(server);

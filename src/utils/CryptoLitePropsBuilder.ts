@@ -1,59 +1,60 @@
-import { pathsChecker } from "./pathChecker"
+import { createRuleIfNotExists } from "./pathChecker"
 
 export const CryptoLitePropsBuilder=(server:any)=>{
-    server.paths=[]
     
-    server.middlewares=[]
+    server.routeTable=new Object()
+    
+    server.middlewares=new Array()
     
 
     server.get=function(path:string,...handles:Array<Function>){
-        this.paths[(pathsChecker(this.paths,path))].methods.get=
+        this.routeTable[(createRuleIfNotExists(this.routeTable,path))].methods.get=
        {
         middlewares:handles
        }
 }
     server.post=function(path:string,...handles:Array<Function>){
-                this.paths[(pathsChecker(this.paths,path))].methods.post=
+        this.routeTable[(createRuleIfNotExists(this.routeTable,path))].methods.post=
         {
          middlewares:handles
         }
     }
     server.patch=function(path:string,...handles:Array<Function>){
-        this.paths[(pathsChecker(this.paths,path))].methods.patch=
+        this.routeTable[(createRuleIfNotExists(this.routeTable,path))].methods.patch=
        {
         middlewares:handles
        }
 }
     server.delete=function(path:string,...handles:Array<Function>){
-        this.paths[(pathsChecker(this.paths,path))].methods.delete=
+        this.routeTable[(createRuleIfNotExists(this.routeTable,path))].methods.delete=
        {
         middlewares:handles
        }
 }
     server.put=function(path:string,...handles:Array<Function>){
-        this.paths[(pathsChecker(this.paths,path))].methods.put=
+        this.routeTable[(createRuleIfNotExists(this.routeTable,path))].methods.put=
        {
         middlewares:handles
        }
 }
     server.allMethods=function(path:string,...handles:Array<Function>){
-            this.paths[(pathsChecker(this.paths,path))].methods.get=
+        this.routeTable[(createRuleIfNotExists(this.routeTable,path))].methods.get=
             {
                 middlewares:handles
             }
-            this.paths[(pathsChecker(this.paths,path))].methods.post=
+            this.routeTable[(createRuleIfNotExists(this.routeTable,path))].methods.post=
             {
                 middlewares:handles
             }
-            this.paths[(pathsChecker(this.paths,path))].methods.delete=
+            this.routeTable[(createRuleIfNotExists(this.routeTable,path))].methods.delete=
             {
                 middlewares:handles
             }
-            this.paths[(pathsChecker(this.paths,path))].methods.patch=
+            this.routeTable[(createRuleIfNotExists(this.routeTable,path))].methods.patch=
             {
                 middlewares:handles
             }
-            this.paths[(pathsChecker(this.paths,path))].methods.put=
+            this.routeTable[(createRuleIfNotExists(this.routeTable,path))].methods.put=
             {
                 middlewares:handles
             }
@@ -65,35 +66,35 @@ export const CryptoLitePropsBuilder=(server:any)=>{
             this.route=url
         }
         get(...handles:Array<Function>){
-                server.paths[(pathsChecker(server.paths,this.route))].methods.get=
+                server.routeTable[(createRuleIfNotExists(server.routeTable,this.route))].methods.get=
                 {
                  middlewares:handles
                 }
             return this
         }
         post(...handles:Array<Function>){
-            server.paths[(pathsChecker(server.paths,this.route))].methods.post=
+            server.routeTable[(createRuleIfNotExists(server.routeTable,this.route))].methods.post=
             {
              middlewares:handles
             }
         return this
     }
         patch(...handles:Array<Function>){
-            server.paths[(pathsChecker(server.paths,this.route))].methods.patch=
+            server.routeTable[(createRuleIfNotExists(server.routeTable,this.route))].methods.patch=
             {
              middlewares:handles
             }
         return this
     }
          delete(...handles:Array<Function>){
-            server.paths[(pathsChecker(server.paths,this.route))].methods.delete=
+            server.routeTable[(createRuleIfNotExists(server.routeTable,this.route))].methods.delete=
             {
              middlewares:handles
             }
         return this
     }
         put(...handles:Array<Function>){
-            server.paths[(pathsChecker(server.paths,this.route))].methods.put=
+            server.routeTable[(createRuleIfNotExists(server.routeTable,this.route))].methods.put=
             {
              middlewares:handles
             }
@@ -101,31 +102,31 @@ export const CryptoLitePropsBuilder=(server:any)=>{
     }
         allMethods(...handles:Array<Function>){
 
-                server.paths[(pathsChecker(server.paths,this.route))].methods.get=
+            server.routeTable[(createRuleIfNotExists(server.routeTable,this.route))].methods.get=
                 {
                     middlewares:handles
                    }
 
         
-                server.paths[(pathsChecker(server.paths,this.route))].methods.post=
+            server.routeTable[(createRuleIfNotExists(server.routeTable,this.route))].methods.post=
                 {
                     middlewares:handles
                    }
             
             
-                server.paths[(pathsChecker(server.paths,this.route))].methods.patch=
+            server.routeTable[(createRuleIfNotExists(server.routeTable,this.route))].methods.patch=
                 {
                     middlewares:handles
                    }
             
-            if(!server.paths[(pathsChecker(server.paths,this.route))].methods.delete){
-                server.paths[(pathsChecker(server.paths,this.route))].methods.delete=
+            
+                server.routeTable[(createRuleIfNotExists(server.routeTable,this.route))].methods.delete=
                 {
                     middlewares:handles
                    }
-            }
+
             
-                server.paths[(pathsChecker(server.paths,this.route))].methods.put=
+            server.routeTable[(createRuleIfNotExists(server.routeTable,this.route))].methods.put=
                 {
                     middlewares:handles
                    }
@@ -135,14 +136,33 @@ export const CryptoLitePropsBuilder=(server:any)=>{
 
     })(url)};
 
-    server.middle=function(...handles:Array<Function>){
- 
+
+
+
+    server.middle=function(...handles:Array<any>){        
         if(typeof handles[0]==="string"){
-            server.paths[(pathsChecker(server.paths,handles[0]))].middlewares.push(...handles.slice(1))
+            const path=handles[0]
+            handles=handles.slice(1)
+            for(let i =0 ; i< handles.length;i++){
+                if(typeof handles[i]==="function"){
+                    this.routeTable[(createRuleIfNotExists(this.routeTable,path))].middlewares.push(handles[i])
+                }
+            }
         }
         else{
-            server.middlewares.push(...handles)   
+            for(let i=0 ; i<handles.length;i++){
+                if(typeof handles[i]==="function"){
+                    this.middlewares.push(...handles)
+                }
+            }
+               
         }
+ 
+ 
+ 
+ 
     }
+
+
 
 }

@@ -1,7 +1,7 @@
 import {createServer} from "http"
 import { CryptoLiteMiddleFlow } from "./utils/CryptoLiteMiddleFlow"
 import { CryptoLiteResponse } from "./utils/CryptoLiteResponse"
-import { CryptoLiteBasicRouter } from "./utils/CryptoLiteBasicRouter"
+import { CryptoLiteBaseRouter } from "./utils/CryptoLiteBaseRouter"
 import { CryptoLitePropsBuilder } from "./utils/CryptoLitePropsBuilder"
 import { CryptoLiteRequest } from "./utils/CryptoLiteRequest"
 import { cryptoCookie } from "./utils/CryptoLiteCookieMiddle"
@@ -50,7 +50,7 @@ import { cryptoCookie } from "./utils/CryptoLiteCookieMiddle"
 CryptoLiteRequest(req);
 CryptoLiteResponse(res);
 CryptoLiteMiddleFlow(server.middlewares,req,res);
-CryptoLiteBasicRouter(server.paths,req,res)
+CryptoLiteBaseRouter(server.routeTable,req,res)
 
     
         })

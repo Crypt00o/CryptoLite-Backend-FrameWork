@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.UrlParser = void 0;
+exports.UrlParser = exports.queryParser = void 0;
 const queryParser = (url) => {
     let queryString = url.split('?')[1];
     let query = {};
@@ -42,6 +42,7 @@ const queryParser = (url) => {
     }
     return query;
 };
+exports.queryParser = queryParser;
 const cryptoLiteParamsFactory = (url) => {
     let params = "";
     for (let i = 0; i < url.length; i++) {
@@ -67,9 +68,7 @@ const cryptoLiteParamsFactory = (url) => {
 };
 const UrlParser = (req) => {
     const url = decodeURI(req.url);
-    req.query = queryParser(url);
-    console.log(req);
+    req.query = (0, exports.queryParser)(url);
 };
 exports.UrlParser = UrlParser;
-(0, exports.UrlParser)({ url: "/eslam/mohamed/elabd?q=search" });
 //# sourceMappingURL=CryptoLiteUrlParser.js.map

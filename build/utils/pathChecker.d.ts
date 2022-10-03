@@ -1,2 +1,1 @@
-import { CryptoLitePath } from "../types/CryptoLitePaths";
-export declare let pathsChecker: (paths: Array<CryptoLitePath>, path: string) => number;
+export declare let createRuleIfNotExists: (routeTable: object, path: string) => string;
