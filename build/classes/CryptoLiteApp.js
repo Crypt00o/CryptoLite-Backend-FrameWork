@@ -164,9 +164,9 @@ class CryptoLiteApp extends http_1.Server {
         else {
             for (let i = 0; i < handles.length; i++) {
                 if (typeof handles[i] === "function") {
-                    __classPrivateFieldGet(this, _CryptoLiteApp_middlewares, "f").push(...handles);
+                    __classPrivateFieldGet(this, _CryptoLiteApp_middlewares, "f").push(handles[i]);
                 }
-                if (typeof handles[i] === "object" && handles[i] !== null && handles[i].hasOwnProperty("CryptoLiteRouter")) {
+                if (typeof handles[i] === "function" && handles[i].hasOwnProperty("CryptoLiteRouter")) {
                     __classPrivateFieldGet(this, _CryptoLiteApp_routers, "f").push(handles[i]);
                 }
             }

@@ -1,20 +1,24 @@
-import { Server } from "http";
-import { CryptoLiteIntialHandle } from "../types/CryptoLiteInitialHandle";
 import { RouteRules } from "../types/RouteRules";
 import { createRuleIfNotExists } from "../utils/pathChecker";
 
-class CryptoLiteApp extends Server{
+class CryptoLiteRouter {
     #routeRules:RouteRules;
     
     #middlewares:Array<Function>;
 
     #routers:Array<Function>;
     
-    constructor(middlewares:Array<Function>,routers:Array<Function>,routeRules:RouteRules,handle:CryptoLiteIntialHandle){
-        super(handle)
-        this.#routeRules=routeRules
-        this.#middlewares=middlewares
-        this.#routers=routers
+    get CryptoLiteRouter(){
+        return true
+    }
+    get routeRules(){
+        return this.#routeRules
+    }
+    get middlewares(){
+        return this.#middlewares
+    }
+    get routers(){
+        return this.#routers
     }
 
     get(path:string,...handles:Array<Function>){
@@ -149,32 +153,30 @@ class CryptoLiteApp extends Server{
 
     })(url)};
 
-    middle(...handles:Array<unknown>){        
+    middle(...handles:Array<Function>){        
         if(typeof handles[0]==="string"){
             const path=handles[0]
             handles=handles.slice(1)
             for(let i =0 ; i< handles.length;i++){
                 if(typeof handles[i]==="function" && !handles[i].hasOwnProperty("CryptoLiteRouter")){
-                    this.#routeRules[(createRuleIfNotExists(this.#routeRules,path))].middlewares.push(handles[i] as Function)
+                    this.#routeRules[(createRuleIfNotExists(this.#routeRules,path))].middlewares.push(handles[i])
                 }
                 if(typeof handles[i]==="function" && handles[i].hasOwnProperty("CryptoLiteRouter")){
-                    this.#routers.push(handles[i] as Function)
+                    this.#routers.push(handles[i])
                 }
             }
         }
         else{
             for(let i=0 ; i<handles.length;i++){
                 if(typeof handles[i]==="function"){
-                    this.#middlewares.push(handles[i] as Function)
+                    this.#middlewares.push(...handles)
                 }
-                if(typeof handles[i]==="function" && handles[i].hasOwnProperty("CryptoLiteRouter") ){
-                    this.#routers.push(handles[i] as Function)
+                if(typeof handles[i]==="object" && handles[i]!==null && (handles[i] as object).hasOwnProperty("CryptoLiteRouter")){
+                    this.#routers.push(handles[i])
                 }
             }
                
         }
     };
     
-   }
-
-   export{CryptoLiteApp}
+}

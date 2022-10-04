@@ -27,7 +27,7 @@ import { CryptoLiteApp } from "../classes/CryptoLiteApp"
 
    let middlewares:Array<Function>=[]
    let routeRules:RouteRules={}
-   let routers:Array<any>=[]
+   let routers:Array<Function>=[]
 
    const handle=(req:Request,res:Response):void=>{
     

@@ -4,7 +4,7 @@ import { CryptoLiteIntialHandle } from "../types/CryptoLiteInitialHandle";
 import { RouteRules } from "../types/RouteRules";
 declare class CryptoLiteApp extends Server {
     #private;
-    constructor(middlewares: Array<Function>, routers: Array<any>, routeRules: RouteRules, handle: CryptoLiteIntialHandle);
+    constructor(middlewares: Array<Function>, routers: Array<Function>, routeRules: RouteRules, handle: CryptoLiteIntialHandle);
     get(path: string, ...handles: Array<Function>): void;
     post(path: string, ...handles: Array<Function>): void;
     patch(path: string, ...handles: Array<Function>): void;
@@ -20,6 +20,6 @@ declare class CryptoLiteApp extends Server {
         put(...handles: Array<Function>): any;
         allMethods(...handles: Array<Function>): any;
     };
-    middle(...handles: Array<Function>): void;
+    middle(...handles: Array<unknown>): void;
 }
 export { CryptoLiteApp };
