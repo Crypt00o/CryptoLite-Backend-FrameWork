@@ -17,9 +17,9 @@ import { RouteRules } from "../types/RouteRules";
 *                                                                    *
  *********************************************************************/
 export declare const cryptolite: () => {
-    routeRules: RouteRules;
-    middlewares: Array<Function>;
-    routers: Array<any>;
+    "__#1@#routeRules": RouteRules;
+    "__#1@#middlewares": Array<Function>;
+    "__#1@#routers": Array<any>;
     get(path: string, ...handles: Array<Function>): void;
     post(path: string, ...handles: Array<Function>): void;
     patch(path: string, ...handles: Array<Function>): void;
@@ -27,7 +27,7 @@ export declare const cryptolite: () => {
     put(path: string, ...handles: Array<Function>): void;
     allMethods(path: string, ...handles: Array<Function>): void;
     path(url: string): {
-        route: string;
+        "__#2@#route": string;
         get(...handles: Array<Function>): any;
         post(...handles: Array<Function>): any;
         patch(...handles: Array<Function>): any;
@@ -35,7 +35,7 @@ export declare const cryptolite: () => {
         put(...handles: Array<Function>): any;
         allMethods(...handles: Array<Function>): any;
     };
-    middle(...handles: Array<any>): void;
+    middle(...handles: Array<Function>): void;
     setTimeout(msecs?: number, callback?: () => void): any;
     setTimeout(callback: () => void): any;
     maxHeadersCount: number;

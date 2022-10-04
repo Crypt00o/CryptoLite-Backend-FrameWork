@@ -27,67 +27,67 @@ import { Response } from "../types/CryptoLiteResponse"
 
 
    class CryptoLiteApp extends Server{
-    routeRules:RouteRules;
+    #routeRules:RouteRules;
     
-    middlewares:Array<Function>;
+    #middlewares:Array<Function>;
 
-    routers:Array<any>;
+    #routers:Array<any>;
     
     constructor(middlewares:Array<Function>,routers:Array<any>,routeRules:RouteRules,handle:CryptoLiteIntialHandle){
         super(handle)
-        this.routeRules=routeRules
-        this.middlewares=middlewares
-        this.routers=routers
+        this.#routeRules=routeRules
+        this.#middlewares=middlewares
+        this.#routers=routers
     }
 
     get(path:string,...handles:Array<Function>){
-        this.routeRules[(createRuleIfNotExists(this.routeRules,path)) as string].methods.get=
+        this.#routeRules[(createRuleIfNotExists(this.#routeRules,path)) as string].methods.get=
        {
         middlewares:handles
        }
     }
     post(path:string,...handles:Array<Function>){
-        this.routeRules[(createRuleIfNotExists(this.routeRules,path))].methods.post=
+        this.#routeRules[(createRuleIfNotExists(this.#routeRules,path))].methods.post=
         {
          middlewares:handles
         }
     }
     patch(path:string,...handles:Array<Function>){
-        this.routeRules[(createRuleIfNotExists(this.routeRules,path))].methods.patch=
+        this.#routeRules[(createRuleIfNotExists(this.#routeRules,path))].methods.patch=
        {
         middlewares:handles
        }
     }
     delete(path:string,...handles:Array<Function>){
-        this.routeRules[(createRuleIfNotExists(this.routeRules,path))].methods.delete=
+        this.#routeRules[(createRuleIfNotExists(this.#routeRules,path))].methods.delete=
        {
         middlewares:handles
        }
     }
     put(path:string,...handles:Array<Function>){
-        this.routeRules[(createRuleIfNotExists(this.routeRules,path))].methods.put=
+        this.#routeRules[(createRuleIfNotExists(this.#routeRules,path))].methods.put=
        {
         middlewares:handles
        }
     }
     allMethods(path:string,...handles:Array<Function>){
-        this.routeRules[(createRuleIfNotExists(this.routeRules,path))].methods.get=
+        this.#routeRules[(createRuleIfNotExists(this.#routeRules,path))].methods.get=
             {
                 middlewares:handles
             }
-            this.routeRules[(createRuleIfNotExists(this.routeRules,path))].methods.post=
+            this.#routeRules[(createRuleIfNotExists(this.#routeRules,path))].methods.post=
             {
                 middlewares:handles
             }
-            this.routeRules[(createRuleIfNotExists(this.routeRules,path))].methods.delete=
+            this.#routeRules[(createRuleIfNotExists(this.#routeRules,path))].methods.delete=
             {
                 middlewares:handles
             }
-            this.routeRules[(createRuleIfNotExists(this.routeRules,path))].methods.patch=
+            this.#routeRules[(createRuleIfNotExists(this.#routeRules,path))].methods.patch=
             {
                 middlewares:handles
             }
-            this.routeRules[(createRuleIfNotExists(this.routeRules,path))].methods.put=
+            this.#routeRules[(createRuleIfNotExists(this.#routeRules,path))].methods.put=
             {
                 middlewares:handles
             }
@@ -97,40 +97,40 @@ import { Response } from "../types/CryptoLiteResponse"
     path(url:string){
         let app=this
         return new (class Path {
-        route;
+        #route;
         constructor(url:string){
-            this.route=url
+            this.#route=url
         }
         get(...handles:Array<Function>){
-                app.routeRules[(createRuleIfNotExists(app.routeRules,this.route))].methods.get=
+                app.#routeRules[(createRuleIfNotExists(app.#routeRules,this.#route))].methods.get=
                 {
                  middlewares:handles
                 }
             return this
         }
         post(...handles:Array<Function>){
-            app.routeRules[(createRuleIfNotExists(app.routeRules,this.route))].methods.post=
+            app.#routeRules[(createRuleIfNotExists(app.#routeRules,this.#route))].methods.post=
             {
              middlewares:handles
             }
         return this
     }
         patch(...handles:Array<Function>){
-            app.routeRules[(createRuleIfNotExists(app.routeRules,this.route))].methods.patch=
+            app.#routeRules[(createRuleIfNotExists(app.#routeRules,this.#route))].methods.patch=
             {
              middlewares:handles
             }
         return this
     }
          delete(...handles:Array<Function>){
-            app.routeRules[(createRuleIfNotExists(app.routeRules,this.route))].methods.delete=
+            app.#routeRules[(createRuleIfNotExists(app.#routeRules,this.#route))].methods.delete=
             {
              middlewares:handles
             }
         return this
     }
         put(...handles:Array<Function>){
-            app.routeRules[(createRuleIfNotExists(app.routeRules,this.route))].methods.put=
+            app.#routeRules[(createRuleIfNotExists(app.#routeRules,this.#route))].methods.put=
             {
              middlewares:handles
             }
@@ -138,31 +138,31 @@ import { Response } from "../types/CryptoLiteResponse"
     }
         allMethods(...handles:Array<Function>){
 
-            app.routeRules[(createRuleIfNotExists(app.routeRules,this.route))].methods.get=
+            app.#routeRules[(createRuleIfNotExists(app.#routeRules,this.#route))].methods.get=
                 {
                     middlewares:handles
                    }
 
         
-                   app.routeRules[(createRuleIfNotExists(app.routeRules,this.route))].methods.post=
+                   app.#routeRules[(createRuleIfNotExists(app.#routeRules,this.#route))].methods.post=
                 {
                     middlewares:handles
                    }
             
             
-                   app.routeRules[(createRuleIfNotExists(app.routeRules,this.route))].methods.patch=
+                   app.#routeRules[(createRuleIfNotExists(app.#routeRules,this.#route))].methods.patch=
                 {
                     middlewares:handles
                    }
             
             
-                   app.routeRules[(createRuleIfNotExists(app.routeRules,this.route))].methods.delete=
+                   app.#routeRules[(createRuleIfNotExists(app.#routeRules,this.#route))].methods.delete=
                 {
                     middlewares:handles
                    }
 
             
-                   app.routeRules[(createRuleIfNotExists(app.routeRules,this.route))].methods.put=
+                   app.#routeRules[(createRuleIfNotExists(app.#routeRules,this.#route))].methods.put=
                 {
                     middlewares:handles
                    }
@@ -172,26 +172,26 @@ import { Response } from "../types/CryptoLiteResponse"
 
     })(url)};
 
-    middle(...handles:Array<any>){        
+    middle(...handles:Array<Function>){        
         if(typeof handles[0]==="string"){
             const path=handles[0]
             handles=handles.slice(1)
             for(let i =0 ; i< handles.length;i++){
-                if(typeof handles[i]==="function"){
-                    this.routeRules[(createRuleIfNotExists(this.routeRules,path))].middlewares.push(handles[i])
+                if(typeof handles[i]==="function" && !handles[i].hasOwnProperty("CryptoLiteRouter")){
+                    this.#routeRules[(createRuleIfNotExists(this.#routeRules,path))].middlewares.push(handles[i])
                 }
-                if(typeof handles[i]==="object" && handles[i]!==null && (handles[i] as object).hasOwnProperty("CryptoLiteRouter") ){
-                    this.routers.push(handles[i])
+                if(typeof handles[i]==="function" && handles[i].hasOwnProperty("CryptoLiteRouter")){
+                    this.#routers.push(handles[i])
                 }
             }
         }
         else{
             for(let i=0 ; i<handles.length;i++){
                 if(typeof handles[i]==="function"){
-                    this.middlewares.push(...handles)
+                    this.#middlewares.push(...handles)
                 }
                 if(typeof handles[i]==="object" && handles[i]!==null && (handles[i] as object).hasOwnProperty("CryptoLiteRouter")){
-                    this.routers.push(handles[i])
+                    this.#routers.push(handles[i])
                 }
             }
                
