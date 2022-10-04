@@ -4,7 +4,7 @@
     "target": "ES2015",
     "sourceMap": true,
     "outDir": "./build",
-     "noImplicitAny": false,
+     "noImplicitAny": true,
      "declaration": true
   },
   "include": ["src/**/*"],

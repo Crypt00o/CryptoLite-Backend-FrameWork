@@ -2,7 +2,7 @@
   "name": "cryptolite-framework",
   "version": "1.0.3",
   "description": "CrytoLite Framework - For Createing Backend Apps Based On Nodejs",
-  "main": "build/CryptoLite.js",
+  "main": "build/index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "npx tsc"

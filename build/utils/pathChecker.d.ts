@@ -1,1 +1,2 @@
-export declare let createRuleIfNotExists: (routeTable: object, path: string) => string;
+import { RouteRules } from "../types/RouteRules";
+export declare let createRuleIfNotExists: (routeTable: RouteRules, path: string) => string;

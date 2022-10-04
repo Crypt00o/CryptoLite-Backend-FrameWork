@@ -1,10 +1,11 @@
 import { cryptoLiteCookieSigner } from "./CryptoLiteCookieMiddle"
+import { options } from "../types/CryptoLiteCookieOptions"
+import { Response } from "../types/CryptoLiteResponse"
+import { ServerResponse } from "http"
 
-
-
-export const CryptoLiteResponse=(res:any)=>{
+export const CryptoLiteResponse=(res:Response)=>{
     res.CryptoLite={}
-    res.setCookie=function(CryptoLiteCookieName:string,CryptoLiteCookieValue:string,options?:{path?:string,httpOnly?:boolean,secure?:boolean,sameSite?:"strict"|"lax"|"none",expires?:number,signed?:boolean}){
+    res.setCookie=function(CryptoLiteCookieName:string,CryptoLiteCookieValue:string,options?:options){
         if(!this.CryptoLite){
             this.CryptoLite={}
         }
@@ -20,7 +21,7 @@ export const CryptoLiteResponse=(res:any)=>{
 
             if(options.hasOwnProperty("signed")){
                 if(options.signed){
-                    CryptoLiteCookie=CryptoLiteCookieName.concat("=",cryptoLiteCookieSigner(CryptoLiteCookieValue,this.CryptoLite.secret))        
+                    CryptoLiteCookie=CryptoLiteCookieName.concat("=",cryptoLiteCookieSigner(CryptoLiteCookieValue,this.CryptoLite.secret as string))        
                 }
             }
             if(options.hasOwnProperty("httpOnly")){
@@ -34,7 +35,7 @@ export const CryptoLiteResponse=(res:any)=>{
                 }
             }
             if(options.hasOwnProperty("expires")){
-                CryptoLiteCookie=CryptoLiteCookie.concat(";expires=",new Date(options.expires).toUTCString())
+                CryptoLiteCookie=CryptoLiteCookie.concat(";expires=",new Date((options.expires) as string|number|Date).toUTCString())
             }
             if(options.hasOwnProperty("sameSite")){
                 if(options.sameSite){
@@ -58,23 +59,24 @@ export const CryptoLiteResponse=(res:any)=>{
     res.deleteCookie=function(CryptoLiteCookieName:string){
         
         this.setCookie(CryptoLiteCookieName,"",{expires:Date.now()-1000})
+        return this
         
     }
 
-    res.setStatus =(code)=>{
+    res.setStatus =function(code:number){
         if(typeof code==="number" && !isNaN(code) &&code>0 && code<600 ){
             res.statusCode=code
         }
-        return res
+        return this
     }
 
-    res.writeHtml=(data:string)=>{
-        if(!res.statusCode){
-            res.setStatus(200)
+    res.writeHtml=function(data:string){
+        if(!this.statusCode){
+            this.setStatus(200)
         }
-        res.writeHead(res.statusCode,{"Content-Type":"text/html"})
-        res.write(data)
-        res.end()
+        this.writeHead(res.statusCode,{"Content-Type":"text/html"})
+        this.write(data)
+        this.end()
     }
     
     res.writeJson=(data:object)=>{

@@ -1,6 +1,6 @@
 import { queryParser } from "./CryptoLiteUrlParser"
-
-export const CryptoLiteRequest=(req)=>{
+import { Request } from "../types/CryptoLiteRequest"
+export const CryptoLiteRequest=(req:Request)=>{
 
 
 

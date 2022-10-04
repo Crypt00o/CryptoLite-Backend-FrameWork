@@ -1,13 +1,14 @@
 import { CryptoLiteErrorLogger } from "./CryptoLiteErrorLogger";
 import { CryptoLiteMiddleFlow } from "./CryptoLiteMiddleFlow";
-
-function routeing(req,res,routes,path){
+import {Request,Response} from ".."
+import{RouteRules} from "../types/RouteRules"
+function routeing(req:Request,res:Response,routes:RouteRules,path:string){
     CryptoLiteMiddleFlow(routes[path].middlewares,req,res)
     switch (req.method){
         case "GET":
             try{
                 if(routes[path].methods.hasOwnProperty("get"))
-                CryptoLiteMiddleFlow(routes[path].methods.get.middlewares,req,res);
+                CryptoLiteMiddleFlow(routes[path].methods.get.middlewares ,req,res);
             }
             catch(err){
                 CryptoLiteErrorLogger(req,res,`Error GET Didn,t avialable for path : ${path}  , Provided`)
@@ -54,7 +55,7 @@ function routeing(req,res,routes,path){
 
 
 
-export const CryptoLiteBaseRouter=(routes:object,req,res)=>{    
+const CryptoLiteBaseRouter=(routes:RouteRules,req:Request,res:Response)=>{    
         if(routes.hasOwnProperty(req.path)){            
             routeing(req,res,routes,req.path)
         }
@@ -69,3 +70,4 @@ export const CryptoLiteBaseRouter=(routes:object,req,res)=>{
     
 
 }
+export {CryptoLiteBaseRouter}

@@ -1,1 +1,2 @@
-export declare const CryptoLiteResponse: (res: any) => void;
+import { Response } from "../types/CryptoLiteResponse";
+export declare const CryptoLiteResponse: (res: Response) => void;

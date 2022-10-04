@@ -32,7 +32,7 @@ const CryptoLiteResponse = (res) => {
                 }
             }
             if (options.hasOwnProperty("expires")) {
-                CryptoLiteCookie = CryptoLiteCookie.concat(";expires=", new Date(options.expires).toUTCString());
+                CryptoLiteCookie = CryptoLiteCookie.concat(";expires=", new Date((options.expires)).toUTCString());
             }
             if (options.hasOwnProperty("sameSite")) {
                 if (options.sameSite) {
@@ -51,20 +51,21 @@ const CryptoLiteResponse = (res) => {
     };
     res.deleteCookie = function (CryptoLiteCookieName) {
         this.setCookie(CryptoLiteCookieName, "", { expires: Date.now() - 1000 });
+        return this;
     };
-    res.setStatus = (code) => {
+    res.setStatus = function (code) {
         if (typeof code === "number" && !isNaN(code) && code > 0 && code < 600) {
             res.statusCode = code;
         }
-        return res;
+        return this;
     };
-    res.writeHtml = (data) => {
-        if (!res.statusCode) {
-            res.setStatus(200);
+    res.writeHtml = function (data) {
+        if (!this.statusCode) {
+            this.setStatus(200);
         }
-        res.writeHead(res.statusCode, { "Content-Type": "text/html" });
-        res.write(data);
-        res.end();
+        this.writeHead(res.statusCode, { "Content-Type": "text/html" });
+        this.write(data);
+        this.end();
     };
     res.writeJson = (data) => {
         if (!res.statusCode) {

@@ -1,2 +1,2 @@
-export declare const queryParser: (url: string) => {};
-export declare const cryptoLiteParamsFactory: (url: any) => string;
+export declare const queryParser: (url: string) => any;
+export declare const cryptoLiteParamsFactory: (url: string) => string;
