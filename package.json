@@ -1,6 +1,6 @@
 {
   "name": "cryptolite-framework",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "CrytoLite Framework - For Createing Backend Apps Based On Nodejs",
   "main": "build/index.js",
   "scripts": {
