@@ -3,6 +3,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.CryptoLiteResponse = void 0;
 const CryptoLiteCookieMiddle_1 = require("./CryptoLiteCookieMiddle");
 const CryptoLiteResponse = (res) => {
+    res.setHeader("x-powered-by", "CryptoLite.js");
     res.CryptoLite = {};
     res.setCookie = function (CryptoLiteCookieName, CryptoLiteCookieValue, options) {
         if (!this.CryptoLite) {

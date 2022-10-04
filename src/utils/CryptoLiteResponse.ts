@@ -4,6 +4,7 @@ import { Response } from "../types/CryptoLiteResponse"
 import { ServerResponse } from "http"
 
 export const CryptoLiteResponse=(res:Response)=>{
+    res.setHeader("x-powered-by","CryptoLite.js")
     res.CryptoLite={}
     res.setCookie=function(CryptoLiteCookieName:string,CryptoLiteCookieValue:string,options?:options){
         if(!this.CryptoLite){
